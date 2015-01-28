@@ -1,5 +1,5 @@
-function [outArray, dataLength] = DataFramer(inArray)
-%DATAFRAMER Convert data into appropriate video frame
+function [ outArray ] = DataDeFramer( inArray, dataLength )
+%DATADEFRAMER Convert video frame into the original data
 %   Detailed explanation goes here
 
 FrameWidth = 1920;
@@ -14,32 +14,28 @@ if (floor(BlockEndI) ~= ceil(BlockEndI)) || ...
         (floor(BlockEndJ) ~= ceil(BlockEndJ))
     error('The specified block sizes cannot be fit into 1080p video');
 end
-outArray = uint8(zeros([Frameheight FrameWidth 3 ceil(numel(inArray)/(BlockEndI*BlockEndJ*3))]));
-inArraySize = numel(inArray);
+outArray = uint8(zeros([dataLength, 1]));
+disp('inArraySize:');
+disp(size(inArray));
 disp('inArrayElementCount:');
-disp(inArraySize);
-disp('outArraySize:');
-disp(size(outArray));
-disp('outArrayElementCount:');
-disp(numel(outArray)/(BlockSizeI*BlockSizeJ));
-
-dataLength = inArraySize;
-
+disp(numel(inArray)/(BlockSizeI*BlockSizeJ));
 %element number
 m = 1;
 disp('Processing frames');
 disp('     ');
-for l = 1:size(outArray, 4)
+%frames
+for l = 1:size(inArray, 4)
     %colour channel
-    for k = 1:size(outArray, 3)
+    for k = 1:size(inArray, 3)
         for i = 1:BlockEndI
             for j = 1:BlockEndJ
-                outArray(((j-1)*BlockSizeJ+1):(j*BlockSizeJ), ...
+                tmp = squeeze(inArray(((j-1)*BlockSizeJ+1):(j*BlockSizeJ), ...
                     ((i-1)*BlockSizeI+1):(i*BlockSizeI), ...
-                    k, l) = inArray(m);
+                    k, l));
+                outArray(m) = round(mean(tmp(:)));
                 m = m + 1;
-                fprintf('\b\b\b\b\b\b%05.2f%%', m/inArraySize*100);
-                if m > inArraySize
+                fprintf('\b\b\b\b\b\b%05.2f%%', m/dataLength*100);
+                if m > dataLength
                     disp(' ');
                     disp('Terminated at:');
                     disp(m - 1);

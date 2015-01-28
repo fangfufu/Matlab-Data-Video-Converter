@@ -5,7 +5,7 @@ Repeat = 30;
 if size(inArray, 1) ~= 1080 || size(inArray, 2) ~= 1920
     error('Invalid array dimension');
 end;
-writerObj = VideoWriter(outName);
+writerObj = VideoWriter(outName, 'Uncompressed AVI');
 open(writerObj);
 
 disp('Writing Frames');

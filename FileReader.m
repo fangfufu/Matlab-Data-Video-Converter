@@ -1,7 +1,8 @@
-function [ data_array ] = FileReader( input_filename )
+function [ outArray ] = FileReader( inFilename )
 %FILEREADER Read a binary file in uint8 format
 %   Detailed explanation goes here
-file = fopen(input_filename, 'r');
-data_array = fread(file, 'uint8=>uint8');
+fileID = fopen(inFilename, 'r');
+outArray = fread(fileID, 'uint8=>uint8');
+fclose(fileID);
 end
 

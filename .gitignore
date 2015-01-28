@@ -1,3 +1,4 @@
 *.jpg
 *.avi
-
+*.txt
+.directory

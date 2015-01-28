@@ -30,6 +30,6 @@ This is the width of each frame.
 - Repeat
 
 This specifies how many times each unique data frame is repeated. 
-- videoProfile
+- VideoProfile
 
-This specifies Matlab's VideoWriter class's video profile. For more information, please have a look at the documentation for [VideoWriter](http://uk.mathworks.com/help/matlab/ref/videowriter-class.html VideoWriter class) class on Matlab website.
+This specifies Matlab's VideoWriter class's video profile. For more information, please have a look at the documentation for [VideoWriter](http://uk.mathworks.com/help/matlab/ref/videowriter-class.html VideoWriter class) class on Matlab website. Please note that only lossless compression will allow data recovery

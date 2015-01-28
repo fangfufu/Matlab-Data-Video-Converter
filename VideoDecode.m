@@ -1,4 +1,4 @@
-function [frames] = VideoDecode(videoName, fileName, dataLength )
+function [dataArray] = VideoDecode(videoName, fileName, dataLength )
 %VIDEODECODE Summary of this function goes here
 %   Detailed explanation goes here
 

@@ -2,19 +2,15 @@ function [outArray, dataLength] = DataFramer(inArray)
 %DATAFRAMER Convert data into appropriate video frame
 %   Detailed explanation goes here
 
-FrameWidth = 1920;
-Frameheight = 1080;
-BlockSizeI = 1;
-BlockSizeJ = 1;
-Repeat = 1;
+load('settings.mat');
 
 BlockEndI = FrameWidth/BlockSizeI;
-BlockEndJ = Frameheight/BlockSizeJ;
+BlockEndJ = FrameHeight/BlockSizeJ;
 if (floor(BlockEndI) ~= ceil(BlockEndI)) || ...
         (floor(BlockEndJ) ~= ceil(BlockEndJ))
-    error('The specified block sizes cannot be fit into 1080p video');
+    error('The specified block sizes are invalid');
 end
-outArray = uint8(zeros([Frameheight FrameWidth 3 ceil(numel(inArray)/(BlockEndI*BlockEndJ*3))]));
+outArray = uint8(zeros([FrameHeight FrameWidth 3 ceil(numel(inArray)/(BlockEndI*BlockEndJ*3))]));
 inArraySize = numel(inArray);
 disp('inArrayElementCount:');
 disp(inArraySize);
@@ -30,10 +26,12 @@ m = 1;
 disp('Processing frames');
 disp('     ');
 for l = 1:size(outArray, 4)
-    %colour channel
-    for k = 1:size(outArray, 3)
+    %vertical
+    for j = 1:BlockEndJ
+        %horizontal
         for i = 1:BlockEndI
-            for j = 1:BlockEndJ
+            %colour channel
+            for k = 1:size(outArray, 3)
                 outArray(((j-1)*BlockSizeJ+1):(j*BlockSizeJ), ...
                     ((i-1)*BlockSizeI+1):(i*BlockSizeI), ...
                     k, l) = inArray(m);
@@ -43,7 +41,7 @@ for l = 1:size(outArray, 4)
                     disp(' ');
                     disp('Terminated at:');
                     disp(m - 1);
-                    return; 
+                    return;
                 end
             end
         end

@@ -3,14 +3,10 @@ function [ outArray ] = ArrayReader( inName )
 %   Does not check if the file is valid
 %   Detailed explanation goes here
 
-FrameWidth = 1920;
-Frameheight = 1080;
-BlockSizeI = 1;
-BlockSizeJ = 1;
-Repeat = 1;
+load('settings.mat');
 
 readerObj = VideoReader(inName);
-if readerObj.Width ~= FrameWidth || readerObj.Height ~= Frameheight
+if readerObj.Width ~= FrameWidth || readerObj.Height ~= FrameHeight
     error('Invalid input video dimension');
 end
 
@@ -18,7 +14,7 @@ i = 0;
 
 while hasFrame(readerObj)
     i = i + 1;
-    tempFrame = double(zeros([Frameheight FrameWidth 3]));
+    tempFrame = double(zeros([FrameHeight FrameWidth 3]));
     for j = 1:Repeat
         tempFrame = tempFrame + double(readFrame(readerObj));
     end

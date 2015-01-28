@@ -1,11 +1,13 @@
 function [] = ArrayDumper( inArray, outName )
 %ARRAYDUMPER Dump an array to file
-%   Please use 1080x1920xn array.
-Repeat = 30;
-if size(inArray, 1) ~= 1080 || size(inArray, 2) ~= 1920
+
+load('settings.mat');
+
+if size(inArray, 1) ~= FrameHeight || size(inArray, 2) ~= FrameWidth
     error('Invalid array dimension');
 end;
-writerObj = VideoWriter(outName, 'Uncompressed AVI');
+
+writerObj = VideoWriter(outName, VideoProfile);
 open(writerObj);
 
 disp('Writing Frames');

@@ -20,15 +20,16 @@ m = 1;
 disp('Processing frames');
 disp('     ');
 %frames
+k = 1:3;
 for l = 1:size(inArray, 4)
     %vertical
     for j = 1:BlockEndJ
         %horizontal
         for i = 1:BlockEndI
             %colour channel
-            for k = 1:size(inArray, 3)
-                tmp = squeeze(inArray(((j-1)*BlockSizeJ+1):(j*BlockSizeJ), ...
-                    ((i-1)*BlockSizeI+1):(i*BlockSizeI), ...
+%             for k = 1:size(inArray, 3)
+                tmp = squeeze(inArray(((j-1)*BlockSizeJ+2):(j*BlockSizeJ-1), ...
+                    ((i-1)*BlockSizeI+2):(i*BlockSizeI-1), ...
                     k, l));
                 outArray(m) = round(mean(tmp(:)));
                 m = m + 1;
@@ -39,7 +40,7 @@ for l = 1:size(inArray, 4)
                     disp(m - 1);
                     return; 
                 end
-            end
+%             end
         end
     end
 end

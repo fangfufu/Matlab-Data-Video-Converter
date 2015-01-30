@@ -1,10 +1,8 @@
-function [dataArray] = VideoDecode(videoName, fileName, dataLength )
-%VIDEODECODE Summary of this function goes here
+function [dataArray, frameArray] = VideoDecode(videoName, fileName, dataLength )
+%VIDEODECODE Decode a video into data
 %   Detailed explanation goes here
-
-frames = ArrayReader(videoName);
-dataArray = DataDeFramer(frames, dataLength);
+frameArray = ArrayReader(videoName);
+dataArray = BytePacker(DataDeFramer(frameArray, dataLength));
 FileWriter(dataArray, fileName);
-
 end
 

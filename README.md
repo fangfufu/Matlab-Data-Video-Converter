@@ -9,7 +9,7 @@ Note, that parameter that achieves the highest data rate appears to be bs_x = 8,
 ```
   %FILETOVIDEO Convert a file into a video
 %   [len, bc_x, bc_y] = FileToVideo(in_name, out_name, ...
-%   dim_x, dim_y, bs_x, bs_y)
+%   dim_x, dim_y, repeat, bs_x, bs_y)
 %   Where   in_name is the input filename an arbitary binary file, 
 %           out_name is the output filename of the video,
 %           repeat is the number of repeated frame,
@@ -21,7 +21,7 @@ Note, that parameter that achieves the highest data rate appears to be bs_x = 8,
 - Converting a video file to data
 ```
   %VIDEOTOFILE Convert a video back into a file
-%   VideoToFile( in_name, out_name, bc_x, bc_y )
+%   VideoToFile(in_name, out_name, len, repeat, bc_x, bc_y )
 %   Where   in_name is the input filename of the video
 %           out_name is the output filename of the binary
 %           len is the length of the binary file

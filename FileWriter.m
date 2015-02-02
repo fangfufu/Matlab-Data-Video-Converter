@@ -1,7 +1,7 @@
 function [ ] = FileWriter( inArray, outFilename )
 %FILEWRITER Write a binary file using an uint8 array
 %   Detailed explanation goes here
-if ~strcmp(class(inArray), 'uint8') %#ok<STISA>
+if ~isa(inArray, 'uint8')
     error('Invalid input array type.')
 end
 

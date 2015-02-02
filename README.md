@@ -1,5 +1,6 @@
 # Matlab-Data-Video-Converter
-Convert arbitrary binary files into a video.
+Convert arbitrary binary files into a video. 
+Example output: https://www.youtube.com/watch?v=Zz_jMKZOeBg
 
 ## Usage
 - Converting a data file to video

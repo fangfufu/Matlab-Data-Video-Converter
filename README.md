@@ -1,7 +1,9 @@
 # Matlab-Data-Video-Converter
 Convert arbitrary binary files into a video. 
+
 Example output: https://www.youtube.com/watch?v=Zz_jMKZOeBg
 
+Note, that parameter that achieves the highest data rate appears to be bs_x = 6, bs_y = 6, repeat = 2. If you set the parameter higher than that, Youtube refuse to accept the video. However bs_x = 8 and bs_y = 8 seems to result in higher decoding speed
 ## Usage
 - Converting a data file to video
 ```

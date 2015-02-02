@@ -32,9 +32,6 @@ frame_count = ceil(numel(in_logical) / (bc_x * bc_y));
 block_frames = false(bc_y, bc_x, frame_count);
 block_frames(1:numel(in_logical)) = in_logical(:);
 
-disp('Block frame size:');
-disp(size(block_frames));
-
 % Setup an output frame
 disp('Outputting frames:');
 disp('     ');

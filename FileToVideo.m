@@ -1,5 +1,5 @@
 function [len, bc_x, bc_y] = FileToVideo(in_name, out_name, ...
-    repeat, dim_x, dim_y, bs_x, bs_y)
+    dim_x, dim_y, repeat, bs_x, bs_y)
 %FILETOVIDEO Convert a file into a video
 %   [len, bc_x, bc_y] = FileToVideo(in_name, out_name, ...
 %   dim_x, dim_y, bs_x, bs_y)
@@ -33,12 +33,16 @@ block_frames = false(bc_y, bc_x, frame_count);
 block_frames(1:numel(in_logical)) = in_logical(:);
 
 % Setup an output frame
+% disp('Outputting frames:');
+disp('     ');
 for i = 1:frame_count
     out_frame = BlockToFrame(block_frames(:,:,i), bs_x, bs_y);
     for j = 1:repeat
         writeVideo(writerObj, out_frame);
     end
+    fprintf('\b\b\b\b\b\b%05.2f%%', i/frame_count*100);
 end
+disp(' ');
 close(writerObj);
 
 fprintf('Output file parameters:\n len: %d , bc_x: %d, bc_y: %d\n', ...

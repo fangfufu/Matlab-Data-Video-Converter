@@ -8,9 +8,12 @@ function VideoToFile( in_name, out_name, len, repeat, bc_x, bc_y )
 %           bc_y is the bock count in the vertical direction
 
 readerObj = VideoReader(in_name);
-block_frames = false(bc_y, bc_x, ceil(len/(bc_x * bc_y)));
+frame_count = ceil(len/(bc_x * bc_y));
+block_frames = false(bc_y, bc_x, frame_count);
 
 i = 0;
+disp('Reading frames:');
+disp('     ');
 while hasFrame(readerObj)
     i = i + 1;
     tempFrame = double(zeros([readerObj.Height readerObj.Width 3]));
@@ -19,7 +22,9 @@ while hasFrame(readerObj)
     end
     tempFrame = rgb2gray(uint8(round(tempFrame ./ repeat)));
     block_frames(:,:,i) = FrameToBlock(tempFrame, bc_x, bc_y);
+    fprintf('\b\b\b\b\b\b%05.2f%%', i/frame_count*100);
 end
+disp(' ');
 
 logicals = block_frames(1:len * 8);
 logicals = reshape(logicals, len, 8); 

@@ -8,8 +8,11 @@ function VideoToFile( in_name, out_name, len, repeat, bc_x, bc_y )
 %           bc_y is the bock count in the vertical direction
 
 readerObj = VideoReader(in_name);
-frame_count = ceil(len/(bc_x * bc_y));
+frame_count = ceil(len * 8 /(bc_x * bc_y));
 block_frames = false(bc_y, bc_x, frame_count);
+
+disp('Block frame size:');
+disp(size(block_frames));
 
 i = 0;
 disp('Reading frames:');

@@ -28,12 +28,15 @@ bc_x = floor(dim_x / bs_x);
 bc_y = floor(dim_y / bs_y);
 
 % Setup block diagram for each frame
-frame_count = ceil(numel(in_logical) / bc_x * bc_y);
+frame_count = ceil(numel(in_logical) / (bc_x * bc_y));
 block_frames = false(bc_y, bc_x, frame_count);
 block_frames(1:numel(in_logical)) = in_logical(:);
 
+disp('Block frame size:');
+disp(size(block_frames));
+
 % Setup an output frame
-% disp('Outputting frames:');
+disp('Outputting frames:');
 disp('     ');
 for i = 1:frame_count
     out_frame = BlockToFrame(block_frames(:,:,i), bs_x, bs_y);

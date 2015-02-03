@@ -13,7 +13,7 @@ reader_obj = VideoReader(in_name);
 file_id = fopen(out_name, 'w');
 
 % Bit per frame
-bit_pf = bc_x * bc_y * 3;
+bit_pf = bc_x * bc_y;
 
 % Byte per frame
 byte_pf = floor(bit_pf / 8);
@@ -31,17 +31,18 @@ while hasFrame(reader_obj)
     for j = 1:repeat
         tempFrame = tempFrame + uint32(readFrame(reader_obj));
     end
-    tempFrame = uint8(round(tempFrame ./ repeat));
+    tempFrame = uint8(round(sum(tempFrame,3) ./ repeat ./3));
     block_frames = FrameToBlock(tempFrame, bc_x, bc_y);
-    bytes = uint8(LogicalToByte(reshape(block_frames, [], 8)));
     if bytes_read < len
         bytes = uint8(LogicalToByte(reshape(block_frames, [], 8)));
+        fprintf('\b\b\b\b\b\b%05.2f%%', bytes_read/len*100);
     else
         bytes = uint8(LogicalToByte(reshape( ...
             block_frames(1:((len-old_bytes_read)*8)), [], 8)));
+            fprintf('\b\b\b\b\b\b100%%');
+
     end
     fwrite(file_id, bytes);
-    fprintf('\b\b\b\b\b\b%05.2f%%', bytes_read/len*100);
 end
 disp(' ');
 

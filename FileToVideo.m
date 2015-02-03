@@ -23,13 +23,13 @@ bc_x = floor(dim_x / bs_x);
 bc_y = floor(dim_y / bs_y);
 
 % Bit per frame
-bit_pf = bc_x * bc_y * 3;
+bit_pf = bc_x * bc_y;
 
 % Byte per frame
 byte_pf = floor(bit_pf / 8);
 
 % Buffers
-block_frames = false(bc_y, bc_x, 3); 
+block_frames = false(bc_y, bc_x); 
 
 % Main loop
 disp('Outputting frames:');

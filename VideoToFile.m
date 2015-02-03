@@ -8,31 +8,44 @@ function VideoToFile( in_name, out_name, len, repeat, bc_x, bc_y )
 %           bc_x is the block count in horizontal direciton
 %           bc_y is the bock count in the vertical direction
 
-readerObj = VideoReader(in_name);
-frame_count = ceil(len * 8 /(bc_x * bc_y));
-block_frames = false(bc_y, bc_x, frame_count);
+% File descriptors
+reader_obj = VideoReader(in_name);
+file_id = fopen(out_name, 'w');
 
-i = 0;
+% Bit per frame
+bit_pf = bc_x * bc_y * 3;
+
+% Byte per frame
+byte_pf = floor(bit_pf / 8);
+
+% Bytes read so far
+bytes_read = 0;
+
+% Main loop
 disp('Reading frames:');
 disp('     ');
-while hasFrame(readerObj)
-    i = i + 1;
-    tempFrame = double(zeros([readerObj.Height readerObj.Width 3]));
+while hasFrame(reader_obj)
+    old_bytes_read = bytes_read;
+    bytes_read = bytes_read + byte_pf;
+    tempFrame = uint32(zeros([reader_obj.Height reader_obj.Width 3]));
     for j = 1:repeat
-        tempFrame = tempFrame + double(readFrame(readerObj));
+        tempFrame = tempFrame + uint32(readFrame(reader_obj));
     end
-    tempFrame = rgb2gray(uint8(round(tempFrame ./ repeat)));
-    block_frames(:,:,i) = FrameToBlock(tempFrame, bc_x, bc_y);
-    fprintf('\b\b\b\b\b\b%05.2f%%', i/frame_count*100);
+    tempFrame = uint8(round(tempFrame ./ repeat));
+    block_frames = FrameToBlock(tempFrame, bc_x, bc_y);
+    bytes = uint8(LogicalToByte(reshape(block_frames, [], 8)));
+    if bytes_read < len
+        bytes = uint8(LogicalToByte(reshape(block_frames, [], 8)));
+    else
+        bytes = uint8(LogicalToByte(reshape( ...
+            block_frames(1:((len-old_bytes_read)*8)), [], 8)));
+    end
+    fwrite(file_id, bytes);
+    fprintf('\b\b\b\b\b\b%05.2f%%', bytes_read/len*100);
 end
 disp(' ');
 
-logicals = block_frames(1:len * 8);
-logicals = reshape(logicals, len, 8); 
-bytes = uint8(LogicalToByte(logicals));
-FileWriter(bytes, out_name);
-
-
+fclose(file_id);
 
 end
 

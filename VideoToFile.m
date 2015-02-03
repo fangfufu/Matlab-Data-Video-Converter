@@ -3,8 +3,8 @@ function VideoToFile( in_name, out_name, len, repeat, bc_x, bc_y )
 %   VideoToFile( in_name, out_name, bc_x, bc_y )
 %   Where   in_name is the input filename of the video
 %           out_name is the output filename of the binary
-%           repeat is the number of repeated frame for each unique frame
 %           len is the length of the binary file
+%           repeat is the number of repeated frame for each unique frame
 %           bc_x is the block count in horizontal direciton
 %           bc_y is the bock count in the vertical direction
 

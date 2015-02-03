@@ -5,9 +5,9 @@ function [len, bc_x, bc_y] = FileToVideo(in_name, out_name, ...
 %   dim_x, dim_y, bs_x, bs_y)
 %   Where   in_name is the input filename an arbitary binary file, 
 %           out_name is the output filename of the video,
-%           repeat is the number of repeated frame,
 %           dim_x is the desired width of the video,
 %           dim_y is the desired height of the video,
+%           repeat is the number of repeated frame,
 %           bs_x is the horizontal block size of the video,
 %           bs_y is the vertical block size of the video.
 

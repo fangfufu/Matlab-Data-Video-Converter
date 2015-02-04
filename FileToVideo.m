@@ -47,7 +47,7 @@ end
 close(writer_obj);
 disp(' ');
 
-fprintf('Output file parameters:\n len: %d , repeat :%d, bc_x: %d, bc_y: %d\n', ...
+fprintf('Output file parameters:\n len: %d, repeat: %d, bc_x: %d, bc_y: %d\n', ...
     len, repeat, bc_x, bc_y);
 
 end

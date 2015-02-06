@@ -1,4 +1,8 @@
 # Matlab-Data-Video-Converter
+## IMPORTANT UPDATES ##
+There are some important updates - you don't have to use Matlab to convert the data. You can use ffmpeg. There are 3 shell scripts in the repository which do these things. They are pretty much self-explanatory. If you can't figure out what to do, contact me. You can definitely reach me via Reddit. 
+
+## Introduction ##
 Convert arbitrary binary files into a video. 
 
 Example output: https://www.youtube.com/watch?v=Zz_jMKZOeBg

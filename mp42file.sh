@@ -9,4 +9,4 @@ FRAME_HEIGHT=$(echo "${FRAME_HEIGHT_MP4}/${BLOCK_SIZE}" | bc)
 DATA_FPS=60
 VID_FPS=60
 
-ffmpeg -y -i "$1" -r ${VID_FPS} -f rawvideo -pix_fmt monow -vf "scale=iw/${BLOCK_SIZE}:ih/${BLOCK_SIZE}" -video_size ${FRAME_WIDTH}x${FRAME_HEIGHT} -sws_flags neighbor -r ${DATA_FPS} pipe:1 | xz -d > $2
+ffmpeg -y -i "$1" -r ${VID_FPS} -f rawvideo -pix_fmt monow -vf "scale=iw/${BLOCK_SIZE}:ih/${BLOCK_SIZE}" -video_size ${FRAME_WIDTH}x${FRAME_HEIGHT} -sws_flags neighbor -r ${DATA_FPS} $2 | xz -d --stdout > $2
